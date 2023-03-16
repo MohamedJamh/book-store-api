@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Genre;
+use App\Http\Requests\Genres\GenresRequest;
+use App\Http\Resources\Genres\GenreResource;
+use App\Http\Resources\Genres\GenreCollection;
 use Illuminate\Http\Request;
 
-class BookController extends Controller
+class GenreController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth:api');
+
     }
     /**
      * Display a listing of the resource.
@@ -15,20 +19,25 @@ class BookController extends Controller
      */
     public function index()
     {
+        $genres = Genre::all();
         return response()->json([
-            "message" => "yes"
+            "status" => "success",
+            "result" => new GenreCollection($genres)
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GenresRequest $request)
     {
-        //
+        $genre = Genre::create($request->all());
+        return response()->json([
+            "status" => "success",
+            "message" => "genre added succefully",
+            "result" => new GenreResource($genre)
+        ]);
     }
 
     /**
