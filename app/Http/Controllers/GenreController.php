@@ -21,9 +21,9 @@ class GenreController extends Controller
     {
         $genres = Genre::all();
         return response()->json([
-            "status" => "success",
+            "status" => true,
             "result" => new GenreCollection($genres)
-        ]);
+        ],200);
     }
 
     /**
@@ -34,43 +34,48 @@ class GenreController extends Controller
     {
         $genre = Genre::create($request->all());
         return response()->json([
-            "status" => "success",
+            "status" => true,
             "message" => "genre added succefully",
             "result" => new GenreResource($genre)
-        ]);
+        ],201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Genre $genre)
     {
-        //
+        return response()->json([
+            "status" => true,
+            "result" => new GenreResource($genre)
+        ],200);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GenresRequest $request,Genre $genre)
     {
-        //
+        $genre->update($request->all());
+        return response()->json([
+            "status" => true,
+            "message" => "Genre has been updated succefully",
+            "result" => new GenreResource($genre)
+        ],200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Genre $genre)
     {
-        //
+        $genre->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'Genre deleted successfully'
+        ], 200);
     }
 }

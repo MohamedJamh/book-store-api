@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Genres;
+namespace App\Http\Requests\Account\Passwords;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GenresRequest extends FormRequest
+class ResetPasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,10 @@ class GenresRequest extends FormRequest
      */
     public function rules()
     {
-        $validation = ['required'];
-        if($this->isMethod('post')) array_push($validation,'unique:genres');
         return [
-            'name' => $validation
+            "token" => ['required'],
+            "email" => ['required','email','exists:users'],
+            "password" => ['required','confirmed','min:8']
         ];
     }
 }

@@ -23,5 +23,8 @@ use App\Http\Controllers\AuthController;
 //     Route::post('refresh', 'refresh');
 // });
 
-Route::apiResource('/genres',GenreController::class);
+Route::apiResource('genres',GenreController::class);
 Route::apiResource('books',BookController::class);
+
+Route::post('request-password',[AccountController::class,'requestPassword']);
+Route::post('reset-password',[AccountController::class,'resetPassword'])->name('password.reset');

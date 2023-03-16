@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -30,6 +31,7 @@ class AuthController extends Controller
             ], 401);
         }
 
+
         $user = Auth::user();
         return response()->json([
             'status' => 'success',
@@ -54,6 +56,9 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        // event(new Registered($user));
+
 
         $token = Auth::login($user);
         return response()->json([
