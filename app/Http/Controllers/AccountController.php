@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Account\Passwords\DemandeResetPasswordRequest;
 use App\Http\Requests\Account\Passwords\ResetPasswordRequest;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Models\User;
 use Hash;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ use Str;
 class AccountController extends Controller
 {
     public function __construct(){
-
+        //add geust middlwear here FOR RESET PASSWORD ONLY
         
     }
     public function requestPassword(DemandeResetPasswordRequest $request){
@@ -34,5 +35,18 @@ class AccountController extends Controller
             }
         );
         return response()->json(["message" => __($status)]);
+    }
+    public function verificationVerify(EmailVerificationRequest $request){
+        $request->fulfill();
+        return response()->json([
+            "message" => "Your email has been verified"
+        ]);
+    }
+    public function verificationSent(Request $request){
+        $request->user()->sendEmailVerificationNotification();
+ 
+        return response()->json([
+            'message', 'Verification link sent!'
+        ]);
     }
 }
