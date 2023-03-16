@@ -58,7 +58,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        // event(new Registered($user));
+        event(new Registered($user));
 
 
         $token = Auth::login($user);

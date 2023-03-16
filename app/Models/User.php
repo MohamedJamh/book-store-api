@@ -11,7 +11,7 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\CanResetPassword;
 
-class User extends Authenticatable Implements JWTSubject,CanResetPassword
+class User extends Authenticatable Implements JWTSubject,CanResetPassword,MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class GenreController extends Controller
 {
     public function __construct(){
-
+        $this->middleware('verified');
     }
     /**
      * Display a listing of the resource.

@@ -46,7 +46,7 @@ class AccountController extends Controller
         $request->user()->sendEmailVerificationNotification();
  
         return response()->json([
-            'message', 'Verification link sent!'
+            'message' => 'Verification link sent!'
         ]);
     }
 }
