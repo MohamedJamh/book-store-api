@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AccountController;
-
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,6 +24,10 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
 });
+
+Route::get('profile',[ProfileController::class,'index']);
+Route::patch('profile/details',[ProfileController::class,'updateDetails']);
+Route::put('profile/password',[ProfileController::class,'updatePassword']);
 
 Route::apiResource('genres',GenreController::class);
 Route::apiResource('books',BookController::class);
