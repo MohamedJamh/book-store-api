@@ -29,7 +29,7 @@ class ProfileController extends Controller
         return response()->json([
             "status" => true,
             "message" => "Profile details has been updated",
-            "user" => new UserResource($user)
+            "results" => new UserResource($user)
         ]);
     }
     public function updatePassword(UpdateUserPassword $request){

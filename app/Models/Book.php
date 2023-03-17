@@ -4,17 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Book extends Model
 {
-    use HasFactory;
+    use HasFactory , SoftDeletes;
 
+    protected $primaryKey = 'isbn';
     protected $fillable = [
         "isbn",
         "title",
+        "content",
+        "status",
         "date_publication",
         "number_pages",
-        "auteur_id",
+        "author_id",
         "collection_id",
         "genre_id"
     ];
