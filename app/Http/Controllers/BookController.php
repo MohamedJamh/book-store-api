@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Book\StoreBookRequest;
+use App\Http\Requests\Book\UpdateBookRequest;
+use App\Http\Resources\Book\BookCollection;
+use App\Http\Resources\Book\BookResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -20,7 +23,7 @@ class BookController extends Controller
         $books = Book::all();
         return response()->json([
             "message" => true,
-            "books" => $books
+            "results" => new BookCollection($books)
         ]);
     }
 
@@ -30,11 +33,11 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        $book = Book::create($request->all());
+        $books = Book::create($request->all());
         return response()->json([
             "status" => true,
             "message" => "Book has been added !",
-            "result" => $book
+            "results" => $books
         ]);
     }
 
@@ -42,31 +45,38 @@ class BookController extends Controller
      * Display the specified resource.
      *
      */
-    public function show($id)
+    public function show(Book $book)
     {
-        //
+        return response()->json([
+            "status" => true,
+            "results" => new BookResource($book)
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+        $book->update($request->all());
+        return response()->json([
+            "status" => true,
+            "message" => "Book has been updated!",
+            "results" => new BookResource($book)
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return response()->json([
+            "status" => true,
+            "message" => "Book has been deleted !"
+        ]);
     }
 }

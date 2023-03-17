@@ -22,7 +22,7 @@ class GenreController extends Controller
         $genres = Genre::all();
         return response()->json([
             "status" => true,
-            "result" => new GenreCollection($genres)
+            "results" => new GenreCollection($genres)
         ],200);
     }
 
@@ -36,7 +36,7 @@ class GenreController extends Controller
         return response()->json([
             "status" => true,
             "message" => "genre added succefully",
-            "result" => new GenreResource($genre)
+            "results" => new GenreResource($genre)
         ],201);
     }
 
@@ -48,7 +48,7 @@ class GenreController extends Controller
     {
         return response()->json([
             "status" => true,
-            "result" => new GenreResource($genre)
+            "results" => new GenreResource($genre)
         ],200);
     }
 
@@ -62,7 +62,7 @@ class GenreController extends Controller
         return response()->json([
             "status" => true,
             "message" => "Genre has been updated succefully",
-            "result" => new GenreResource($genre)
+            "results" => new GenreResource($genre)
         ],200);
     }
 
