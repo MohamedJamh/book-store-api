@@ -79,4 +79,11 @@ class BookController extends Controller
             "message" => "Book has been deleted !"
         ]);
     }
+    public function trash(){
+        $books = Book::onlyTrashed()->get();
+        return response()->json([
+            "status" => true,
+            "results" => new BookCollection($books)
+        ]);
+    }
 }

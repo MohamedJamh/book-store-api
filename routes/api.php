@@ -32,6 +32,9 @@ Route::put('profile/password',[ProfileController::class,'updatePassword']);
 Route::apiResource('genres',GenreController::class);
 Route::apiResource('books',BookController::class);
 
+Route::get('books/trash',[BookController::class,'trash']);
+
+
 Route::post('request-password',[AccountController::class,'requestPassword']);
 Route::post('reset-password',[AccountController::class,'resetPassword'])->name('password.reset');
 Route::post('/email/verification-notification',[AccountController::class,'verificationSent'])->middleware(['auth', 'throttle:6,1']);
