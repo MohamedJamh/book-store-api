@@ -14,7 +14,8 @@ class BookResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        
+        $schema = [
             "isbn" => $this->isbn,
             "title" => $this->title,
             "content" => $this->content,
@@ -25,5 +26,7 @@ class BookResource extends JsonResource
             "collectionId" => $this->collection_id,
             "genreId" => $this->genre_id
         ];
+        $this->deleted_at != null ? $schema += ['deletedAt' => $this->deleted_at] : null;
+        return $schema;
     }
 }

@@ -30,9 +30,13 @@ Route::patch('profile/details',[ProfileController::class,'updateDetails']);
 Route::put('profile/password',[ProfileController::class,'updatePassword']);
 
 Route::apiResource('genres',GenreController::class);
-Route::apiResource('books',BookController::class);
+Route::prefix('books')->group(function(){
+    Route::apiResource('',BookController::class);
+    Route::get('trash',[BookController::class,'trashIndex']);
+    Route::get('trash/{id}',[BookController::class,'trashShow']);
+});
 
-Route::get('books/trash',[BookController::class,'trash']);
+
 
 
 Route::post('request-password',[AccountController::class,'requestPassword']);
