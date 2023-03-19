@@ -63,4 +63,8 @@ class User extends Authenticatable Implements JWTSubject,CanResetPassword,MustVe
     {
         return [];
     }
+    
+    public function roles(){
+        return $this->belongsToMany(Role::class);
+    }
 }
