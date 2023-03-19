@@ -17,7 +17,8 @@ class UserResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
-            "email" => $this->email
+            "email" => $this->email,
+            "createdAt" => date_format($this->created_at, 'Y-m-d H:i:s')
         ];
     }
 }
