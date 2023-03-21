@@ -12,12 +12,10 @@ use Illuminate\Http\Request;
 class BookController extends Controller
 {
     public function __construct(){
-        // $this->middleware('auth:api');
+        $this->middleware('auth:api');
+        
     }
-    /**
-     * Display a listing of the resource.
-     *
-     */
+    
     public function index()
     {
         $books = Book::all();
@@ -27,10 +25,7 @@ class BookController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     */
+    
     public function store(StoreBookRequest $request)
     {
         $books = Book::create($request->all());

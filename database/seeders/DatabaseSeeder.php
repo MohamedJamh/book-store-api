@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(3)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
@@ -32,6 +31,10 @@ class DatabaseSeeder extends Seeder
             PermissonsSeeder::class,
             RoleSeeder::class
         ]);
+        User::factory(3)->create()->each(function($user){
+            $user->assignRole('client');
+        });
+
 
     }
 }

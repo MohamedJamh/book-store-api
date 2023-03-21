@@ -20,7 +20,7 @@ class RoleSeeder extends Seeder
         $receptionnist = Role::create([
             'name' => 'receptionnist',
         ]);
-        $receptionnist->syncPermissions('show books');
+        $receptionnist->givePermissionTo('show books');
         $receptionnist->givePermissionTo('add books');
         $receptionnist->givePermissionTo('edit books');
         $receptionnist->givePermissionTo('delete books');
@@ -32,6 +32,9 @@ class RoleSeeder extends Seeder
         $admin->givePermissionTo('add genres');
         $admin->givePermissionTo('edit genres');
         $admin->givePermissionTo('delete genres');
+        $admin->givePermissionTo('show books');
+        $admin->givePermissionTo('edit books');
+        $admin->givePermissionTo('delete books');
 
         
         $client = Role::create([
