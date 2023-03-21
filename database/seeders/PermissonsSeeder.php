@@ -22,10 +22,10 @@ class PermissonsSeeder extends Seeder
         Permission::create(['name' => 'edit books']);
         Permission::create(['name' => 'delete books']);
 
-        Permission::create(['name' => 'show generes']);
-        Permission::create(['name' => 'add generes']);
-        Permission::create(['name' => 'edit generes']);
-        Permission::create(['name' => 'delete generes']);
+        Permission::create(['name' => 'show genres']);
+        Permission::create(['name' => 'add genres']);
+        Permission::create(['name' => 'edit genres']);
+        Permission::create(['name' => 'delete genres']);
         
         Permission::create(['name' => 'show users']);
         Permission::create(['name' => 'edit users']);

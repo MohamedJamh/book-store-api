@@ -36,6 +36,7 @@ Route::prefix('books')->group(function(){
     Route::get('trash',[BookController::class,'trashIndex']);
     Route::get('trash/{id}',[BookController::class,'trashShow']);
 });
+
 Route::prefix('dashboard')->group(function(){
     Route::get('',[DashboardController::class,'index']);
     Route::get('switch/{user}',[DashboardController::class,'switchUserRole']);

@@ -41,10 +41,7 @@ class BookController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     */
+    
     public function show(Book $book)
     {
         return response()->json([
@@ -53,10 +50,7 @@ class BookController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     */
+    
     public function update(UpdateBookRequest $request, Book $book)
     {
         $book->update($request->all());
@@ -67,10 +61,7 @@ class BookController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     */
+
     public function destroy(Book $book)
     {
         $book->delete();

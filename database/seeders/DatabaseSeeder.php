@@ -19,16 +19,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // User::factory(3)->create();
+        User::factory(3)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
-            // GenreSeeder::class,
-            // CollectionSeeder::class,
-            // AutherSeeder::class,
+            GenreSeeder::class,
+            CollectionSeeder::class,
+            AutherSeeder::class,
             PermissonsSeeder::class,
             RoleSeeder::class
         ]);

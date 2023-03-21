@@ -11,12 +11,10 @@ use Illuminate\Http\Request;
 class GenreController extends Controller
 {
     public function __construct(){
-        $this->middleware('verified');
+        
     }
-    /**
-     * Display a listing of the resource.
-     *
-     */
+    
+    
     public function index()
     {
         $genres = Genre::all();
@@ -26,10 +24,8 @@ class GenreController extends Controller
         ],200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     */
+    
+    
     public function store(GenresRequest $request)
     {
         $genre = Genre::create($request->all());
@@ -40,10 +36,7 @@ class GenreController extends Controller
         ],201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     */
+    
     public function show(Genre $genre)
     {
         return response()->json([
@@ -52,10 +45,7 @@ class GenreController extends Controller
         ],200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     */
+    
     public function update(GenresRequest $request,Genre $genre)
     {
         $genre->update($request->all());
@@ -66,10 +56,7 @@ class GenreController extends Controller
         ],200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     */
+    
     public function destroy(Genre $genre)
     {
         $genre->delete();
