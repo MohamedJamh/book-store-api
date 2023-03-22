@@ -3,6 +3,7 @@
 namespace App\Http\Resources\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class UserResource extends JsonResource
 {
@@ -14,10 +15,19 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $user = [
             "id" => $this->id,
             "name" => $this->name,
-            "email" => $this->email
+            "email" => $this->email,
+            "createdAt" => date_format($this->created_at, 'Y-m-d H:i:s')
         ];
+        if(Auth::user()->hasRole('admin')){
+            $roles = array();
+            foreach ($this->roles as $role) {
+                array_push($roles,$role->name);
+            }
+            $user['roles'] = $roles;
+        }
+        return $user;
     }
 }

@@ -12,12 +12,10 @@ use Illuminate\Http\Request;
 class BookController extends Controller
 {
     public function __construct(){
-        // $this->middleware('auth:api');
+        $this->middleware('can:show books')->only('index');
+        $this->middleware(['auth:api','role:admin']);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     */
+    
     public function index()
     {
         $books = Book::all();
@@ -27,24 +25,18 @@ class BookController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     */
+    
     public function store(StoreBookRequest $request)
     {
         $books = Book::create($request->all());
         return response()->json([
             "status" => true,
             "message" => "Book has been added !",
-            "results" => $books
+            "results" => new BookResource($books)
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     */
+    
     public function show(Book $book)
     {
         return response()->json([
@@ -53,10 +45,7 @@ class BookController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     */
+    
     public function update(UpdateBookRequest $request, Book $book)
     {
         $book->update($request->all());
@@ -67,10 +56,7 @@ class BookController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     */
+
     public function destroy(Book $book)
     {
         $book->delete();

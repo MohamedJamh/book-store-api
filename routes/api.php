@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,14 @@ Route::prefix('books')->group(function(){
     Route::apiResource('',BookController::class);
     Route::get('trash',[BookController::class,'trashIndex']);
     Route::get('trash/{id}',[BookController::class,'trashShow']);
+});
+
+Route::prefix('dashboard')->group(function(){
+    Route::get('',[DashboardController::class,'users']);
+    Route::get('switch/{user}',[DashboardController::class,'switchUserRole']);
+    Route::get('roles',[DashboardController::class,'roles']);
+    Route::post('roles/{role}',[DashboardController::class,'storeRolePermission']);
+    Route::delete('roles/{role}',[DashboardController::class,'destroyRolePermission']);
 });
 
 
