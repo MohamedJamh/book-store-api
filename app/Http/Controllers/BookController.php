@@ -32,7 +32,7 @@ class BookController extends Controller
         return response()->json([
             "status" => true,
             "message" => "Book has been added !",
-            "results" => $books
+            "results" => new BookResource($books)
         ]);
     }
 

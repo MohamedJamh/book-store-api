@@ -2,30 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\User\UserCollection;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\UserCollection;
+
 class DashboardController extends Controller
 {
-    public function index(){
-        $user = User::all();
+    public function __construct()
+    {
+        $this->middleware(['auth:api','role:admin']);
+    }
+    public function users(){
+        $users = User::with('roles')->get();
         return response()->json([
             "status" => true,
-            "result" => new UserCollection($user)
+            "result" => new UserCollection($users)
         ]);
     }
     public function switchUserRole(User $user){
-        // $receptionnistRoleId = Role::where('name','Admin')->value('id');
-        // switch ($action) {
-        //     case 'Attach':
-        //         $user->roles()->attach([$adminRoleId]);
-        //         break;
-        //     default:
-        //         $user->roles()->detach([$adminRoleId]);
-        //         break;
-        // }
-        // return redirect()->route('dashboard');
+        if($user->hasRole('receptionnist')){
+            $user->removeRole('receptionnist');
+        }else{
+            $user->assignRole('receptionnist');
+        }
+        return response()->json([
+            "status" => true,
+            "result" => "Role has been switched succeffully !"
+        ]);
+    }
+    public function roles(){
+        $roles = Role::all();
+        return $roles;
     }
 }
