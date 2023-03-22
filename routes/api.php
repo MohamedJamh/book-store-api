@@ -41,6 +41,8 @@ Route::prefix('dashboard')->group(function(){
     Route::get('',[DashboardController::class,'users']);
     Route::get('switch/{user}',[DashboardController::class,'switchUserRole']);
     Route::get('roles',[DashboardController::class,'roles']);
+    Route::post('roles/{role}',[DashboardController::class,'storeRolePermission']);
+    Route::delete('roles/{role}',[DashboardController::class,'destroyRolePermission']);
 });
 
 

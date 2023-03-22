@@ -12,8 +12,8 @@ use Illuminate\Http\Request;
 class BookController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth:api');
-        
+        $this->middleware('can:show books')->only('index');
+        $this->middleware(['auth:api','role:admin']);
     }
     
     public function index()

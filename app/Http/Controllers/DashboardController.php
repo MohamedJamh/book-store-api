@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Role\RoleRequest;
+use App\Http\Resources\Role\RoleCollection;
+use App\Http\Resources\Role\RoleResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -31,11 +34,30 @@ class DashboardController extends Controller
         }
         return response()->json([
             "status" => true,
-            "result" => "Role has been switched succeffully !"
+            "message" => "Role has been switched succeffully !"
         ]);
     }
     public function roles(){
-        $roles = Role::all();
-        return $roles;
+        $roles = Role::with('permissions')->get();
+        return response()->json([
+            "status" => true,
+            "result" => new RoleCollection($roles)
+        ]);
+    }
+    public function storeRolePermission(Role $role,RoleRequest $request){
+        $role->givePermissionTo($request->all());
+        return response()->json([
+            "status" => true,
+            "message" => "permission has been autorised succeffully",
+            "result" => new RoleResource($role)
+        ]);
+    }
+    public function DestroyRolePermission(Role $role,RoleRequest $request){
+        $role->revokePermissionTo($request->all());
+        return response()->json([
+            "status" => true,
+            "message" => "permission has been revoked succeffully",
+            "result" => new RoleResource($role)
+        ]);
     }
 }
