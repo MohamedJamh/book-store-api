@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Profile\UpdateUserDetails;
 use App\Http\Requests\Profile\UpdateUserPassword;
 use App\Models\User;
-use Auth;
-use Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Resources\User\UserResource;
 
@@ -17,7 +17,6 @@ class ProfileController extends Controller
     }
     //
     public function index(){
-        //retriving user profile info
         $user = User::find(auth()->user()->id);
         return response()->json(new UserResource($user),200);
     }

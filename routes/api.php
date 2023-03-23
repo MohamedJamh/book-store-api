@@ -50,5 +50,5 @@ Route::prefix('dashboard')->group(function(){
 
 Route::post('request-password',[AccountController::class,'requestPassword']);
 Route::post('reset-password',[AccountController::class,'resetPassword'])->name('password.reset');
-Route::post('/email/verification-notification',[AccountController::class,'verificationSent'])->middleware(['auth', 'throttle:6,1']);
-Route::get('/email/verify/{id}/{hash}',[AccountController::class,'verificationVerify'])->middleware(['auth', 'signed'])->name('verification.verify');
+Route::post('/email/verification-notification',[AccountController::class,'verificationSent'])->middleware(['throttle:6,1']);
+Route::get('/email/verify/{id}/{hash}',[AccountController::class,'verificationVerify'])->middleware(['signed'])->name('verification.verify');

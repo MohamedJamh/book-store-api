@@ -12,13 +12,24 @@ use Illuminate\Http\Request;
 class BookController extends Controller
 {
     public function __construct(){
-        $this->middleware('can:show books')->only('index');
-        $this->middleware(['auth:api','role:admin']);
+        $this->middleware(['auth:api','verified']);
+        $this->middleware('can:show books')->only(['index','show']);
+        $this->middleware('can:add books')->only('store');
+        $this->middleware('can:edit books')->only('update');
+        $this->middleware('can:delete books')->only('destroy');
+        $this->middleware('role:admin')->only(['trashIndex','trashShow']);
     }
     
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::all();
+        $books = null;
+        if($request->has('genre')){
+            $books = Book::whereHas('genre', function ($query) use ($request) {
+                $query->where('name', $request->genre);
+            })->get();
+        }else{
+            $books = Book::all();
+        }
         return response()->json([
             "message" => true,
             "results" => new BookCollection($books)
@@ -65,6 +76,8 @@ class BookController extends Controller
             "message" => "Book has been deleted !"
         ]);
     }
+
+    
     public function trashIndex(){
         $books = Book::onlyTrashed()->get();
         return response()->json([

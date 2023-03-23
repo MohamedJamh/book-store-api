@@ -6,16 +6,16 @@ use App\Http\Requests\Account\Passwords\DemandeResetPasswordRequest;
 use App\Http\Requests\Account\Passwords\ResetPasswordRequest;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Models\User;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use Password;
-use Str;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 
 class AccountController extends Controller
 {
     public function __construct(){
-        //add geust middlwear here FOR RESET PASSWORD ONLY
-        
+        $this->middleware('auth:api')->only(['verificationSent','verificationVerify']);
+        $this->middleware('guest')->only(['requestPassword','resetPassword']);
     }
     public function requestPassword(DemandeResetPasswordRequest $request){
         $status = Password::sendResetLink(
