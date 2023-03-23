@@ -16,7 +16,7 @@ class BookResource extends JsonResource
     {
         
         $schema = [
-            "isbn" => $this->isbn,
+            "isbn" => $this->id,
             "title" => $this->title,
             "content" => $this->content,
             "status" => $this->status,
