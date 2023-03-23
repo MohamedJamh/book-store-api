@@ -17,7 +17,7 @@ class DashboardController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth:api','role:admin']);
+        $this->middleware(['auth:api','role:admin','verified']);
     }
     public function users(){
         $users = User::with('roles')->get();
